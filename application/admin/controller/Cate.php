@@ -61,4 +61,15 @@ class Cate extends Common
             echo json_encode(['status' => 0, 'msg' => 'not ok']);
         }
     }
+    //即点即改 分类名称
+    public function change_cate_name(){
+        $new_name=request()->post('new_name','');
+        $cate_id=request()->post('cate_id','');
+        $data=['cate_name'=>$new_name];
+        if (\app\admin\model\Cate::updateCate($cate_id, $data)) {
+            echo json_encode(['status' => 1, 'msg' => 'ok', 'content' => $new_name]);
+        } else {
+            echo json_encode(['status' => 0, 'msg' => 'not ok']);
+        }
+    }
 }
