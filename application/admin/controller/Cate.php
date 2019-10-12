@@ -36,4 +36,17 @@ class Cate extends Common
         }
 
     }
+    //切换状态
+    public function change_show(){
+        $cate_id=request()->post('cate_id','');
+        $is_show=request()->post('is_show','')==0 ? 1 : 0;
+
+        $data=['is_show'=>$is_show];
+       if(\app\admin\model\Cate::updateCate($cate_id,$data)){
+           echo json_encode(['status'=>1,'msg'=>'ok','content'=>$is_show]);
+       }else{
+           echo json_encode(['status'=>0,'msg'=>'not ok']);
+       }
+
+    }
 }

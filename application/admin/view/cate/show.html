@@ -10,7 +10,27 @@
 <script type="text/javascript" src="/static/js/global.js"></script>
 
     <script>
-        $
+        $(function(){
+            //切换是否显示
+            $(document).on('click','.is_show',function(){
+                var is_show=parseInt($(this).parents('tr').attr('is_show'));
+                var cate_id=parseInt($(this).parents('tr').attr('cate_id'));
+                $.ajax({
+                    type:'post',
+                    url:"{:url('Cate/change_show')}",
+                    data:{
+                        is_show:is_show,
+                        cate_id:cate_id
+                    },
+                    dataType:'json',
+                    success: function(data){
+                        if(data.status==1){
+                           location.href=''
+                        }
+                    }
+                })
+            })
+        })
     </script>
 </head>
 <body>
@@ -32,7 +52,7 @@
         <th width="80" align="center">操作</th>
       </tr>
     {foreach $cate as $key=>$val}
-      <tr>
+      <tr cate_id='{$val.cate_id}' is_show="{$val.is_show}" is_nav_show="{$val.is_nav_show}">
         <td align="left"> <a href="">{:str_repeat('-',$val.level)} {$val.cate_name}</a></td>
         <td>
             {if $val.is_show eq 0}
