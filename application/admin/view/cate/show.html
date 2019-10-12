@@ -29,7 +29,27 @@
                         }
                     }
                 })
-            })
+            }),
+            //切换是否导航栏显示
+                $(document).on('click','.is_nav_show',function(){
+                    var is_nav_show=parseInt($(this).parents('tr').attr('is_nav_show'));
+                    var cate_id=parseInt($(this).parents('tr').attr('cate_id'));
+                    $.ajax({
+                        type:'post',
+                        url:"{:url('Cate/change_nav_show')}",
+                        data:{
+                            is_nav_show:is_nav_show,
+                            cate_id:cate_id
+                        },
+                        dataType:'json',
+                        success: function(data){
+                            if(data.status==1){
+                                location.href=''
+                            }
+                        }
+                    })
+                })
+
         })
     </script>
 </head>
@@ -62,8 +82,10 @@
             {/if}
         </td>
           <td>
-              {if $val.is_nav_show eq 0}显示
-              {else /}不显示
+              {if $val.is_nav_show eq 0}
+              <span class="is_nav_show">显示</span>
+              {else /}
+              <span class="is_nav_show">不显示</span>
               {/if}
           </td>
         <td align="center">{$val.cate_price_range}</td>
