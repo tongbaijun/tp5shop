@@ -1,0 +1,58 @@
+{extend name="public:base" /}
+{block name="main"}
+<div id="dcMain">
+ <!-- 当前位置 -->
+ <div id="urHere">DouPHP 管理中心<b>></b><strong>权限</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+ <h3><a href="{:url('Limit/limit_show')}" class="actionBtn">返回列表</a>权限管理</h3>
+ <form action="{:url('Limit/add_limit')}" method="post">
+  <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+   <tr>
+    <td width="100" align="right">权限名称</td>
+    <td>
+     <input type="text" name="limit_name" size="40" class="inpMain" />
+    </td>
+   </tr>
+  <tr>
+      <td width="100" align="right">权限等级</td>
+      <td>
+          <select name="limit_pid" id="">
+              <option value="0">最高权限</option>
+              {foreach $limit as $key=>$v}
+              <option value="{$v.limit_id}">
+                  {:str_repeat("　",$v['level'])}  {$v.limit_name}
+              </option>
+              {/foreach}
+          </select>
+      </td>
+  </tr>
+  <tr>
+      <td align="right">是否左侧导航</td>
+      <td>
+       <input type="radio" value="0" name="limit_show" checked>显示
+       <input type="radio" name="limit_show" value="1">不显示
+      </td>
+  </tr> <tr>
+      <td width="100" align="right">所属控制器</td>
+      <td>
+          <input type="text" name="limit_controller" size="40" class="inpMain" />
+      </td>
+  </tr>
+  <tr>
+      <td width="100" align="right">所属模块</td>
+      <td>
+          <input type="text" name="limit_action" size="40" class="inpMain" />
+      </td>
+  </tr>
+   <tr>
+    <td></td>
+    <td>
+     <!--<input type="hidden" name="token" value="5a58b748" />-->
+     <input type="submit" name="submit" class="btn" value="提交" />
+    </td>
+   </tr>
+  </table>
+ </form>
+</div>
+</div>
+<div class="clear"></div>
+{/block}
