@@ -1,5 +1,6 @@
 <?php
 namespace app\admin\controller;
+use app\admin\model\Log;
 use think\Controller;
 use think\Db;
 use think\Session;
@@ -33,7 +34,7 @@ class Login extends Controller
            if($admin=Db::table('shop_admin')->where('admin_name',$admin_name)->find()){
                if(md5(md5($admin_pwd).$admin['admin_sult'])==$admin['admin_pwd']){
                    $data=['admin_name'=>$admin_name,'log_content'=>$admin_name.'登陆了后台系统','log_time'=>time(),'admin_ip'=>$_SERVER['REMOTE_ADDR']];
-                   Db::table('shop_log')->insert($data);
+                   Log::addLog($data);
                    session('admin',$admin);
                    $this->success('登陆成功','Index/index');
                }else{

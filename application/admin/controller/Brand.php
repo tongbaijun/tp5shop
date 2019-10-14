@@ -8,9 +8,10 @@ class Brand extends Common
 {
     public function brand_show()
     {
-        $brand=Db::table('shop_brand')->select();
+        $brand=\app\admin\model\Brand::getAllBrand();
         return view('',['brand'=>$brand]);
     }
+    //添加品牌
     public function add_brand()
     {
         if(request()->isGet()){
@@ -34,7 +35,7 @@ class Brand extends Common
             }
             $brand_logo=request()->domain().'/uploads/'.str_replace('\\','/',$file);
             $data=['brand_name'=>$brand_name,'brand_order'=>$brand_order,'brand_desc'=>$brand_desc,'brand_logo'=>$brand_logo,'is_show'=>$is_show];
-            if(Db::table('shop_brand')->insert($data)){
+            if(\app\admin\model\Brand::addBrand($data)){
                 $this->success('添加品牌成功','brand_show');
             }else{
                 $this->error('添加失败');

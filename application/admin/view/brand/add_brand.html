@@ -1,75 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>DouPHP 管理中心 - 添加商品 </title>
-<meta name="Copyright" content="Douco Design." />
-<link href="/static/css/public.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/jquery.autotextarea.js"></script>
-</head>
-<body>
-{include file='public/head'}
-<!-- dcHead 结束 -->
-{include file='public/left'}
- <div id="dcMain">
-   <!-- 当前位置 -->
-<div id="urHere">DouPHP 管理中心<b>></b><strong>添加品牌</strong> </div>
-     <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
-    <h3><a href="{:url('Brand/brand_show')}" class="actionBtn">品牌列表</a>添加品牌</h3>
-<form action="{:url('Brand/add_brand')}" method="post" enctype="multipart/form-data" >
-    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
-        <tr>
-            <td width="90" align="right">品牌名称</td>
-            <td>
-            <input type="text" name="brand_name" value="" size="50" class="inpMain" />
-            </td>
-        </tr>
-        <tr>
-            <td align="right">品牌排序</td>
-            <td>
-                <input type="text" name="brand_order" value="10" size="10" class="inpMain" />
-            </td>
-        </tr>
-        <tr>
-            <td align="right">品牌logo</td>
-            <td>
-            <input type="file" name="brand_logo" size="40" class="inpMain" />
-            </td>
-        </tr>
-        <tr>
-            <td align="right">品牌描述</td>
-            <td>
-            <input type="text" name="brand_desc" value="" size="50" class="inpMain" />
-            </td>
-        </tr>
-        <tr>
-            <td align="right">是否展示</td>
-            <td>
-                <input type="radio" name="is_show" value="0" checked/>展示
-                <input type="radio" name="is_show" value="1"/>不展示
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-            <input name="submit" class="btn" type="submit" value="提交" />
-        </td>
-        </tr>
-    </table>
-</form>
+{extend name="public:base" /}
+{block name="main"}
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">DouPHP 管理中心<b>></b><strong>添加品牌</strong> </div>
+    <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="{:url('Brand/brand_show')}" class="actionBtn">品牌列表</a>添加品牌</h3>
+        <form action="{:url('Brand/add_brand')}" method="post" enctype="multipart/form-data" >
+            <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                <tr>
+                    <td width="90" align="right">品牌名称</td>
+                    <td>
+                        <input type="text" name="brand_name" value="" size="50" class="inpMain" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">品牌排序</td>
+                    <td>
+                        <input type="text" name="brand_order" value="10" size="10" class="inpMain" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">品牌logo</td>
+                    <td>
+                        <input type="file" name="brand_logo" size="40" class="inpMain" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">品牌描述</td>
+                    <td>
+                        <input type="text" name="brand_desc" value="" size="50" class="inpMain" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">是否展示</td>
+                    <td>
+                        <input type="radio" name="is_show" value="0" checked/>展示
+                        <input type="radio" name="is_show" value="1"/>不展示
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input name="submit" class="btn" type="submit" value="提交" />
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
- </div>
- <div class="clear"></div>
-<div id="dcFooter">
- <div id="footer">
-  <div class="line"></div>
-  <ul>
-   版权所有 © 2013-2015 漳州豆壳网络科技有限公司，并保留所有权利。
-  </ul>
- </div>
-</div><!-- dcFooter 结束 -->
-<div class="clear"></div> </div>
-</body>
-</html>
+</div>
+<div class="clear"></div>
+{/block}

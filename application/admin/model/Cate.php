@@ -33,4 +33,8 @@ class Cate extends Model
             return true ;
         }
     }
+    //添加分类
+    public static function addCate($data){
+        return Db::table('shop_cate')->insert($data);
+    }
 }
