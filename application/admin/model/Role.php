@@ -11,4 +11,8 @@ class Role extends Model
     public static function getAllRole(){
        return self::table('shop_role')->select();
     }
+    //添加角色
+    public static function addRole($data){
+        return self::table('shop_role')->insert($data);
+    }
 }

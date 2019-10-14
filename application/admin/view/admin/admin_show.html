@@ -18,7 +18,7 @@
    <td>{$val.admin_name}</td>
    <td align="center">{$val.admin_email}</td>
    <td align="center">{:date('Y-m-d H:i:s',$val.add_time)}</td>
-   <td align="center"><a href="">编辑角色</a> | <a href="">删除</a></td>
+   <td align="center"><a href="{:url('Role/update_role',['admin_id'=>$val.admin_id])}">编辑角色</a> | <a href="">删除</a></td>
   </tr>
   {/foreach}
  </table>

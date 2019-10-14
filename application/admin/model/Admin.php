@@ -15,4 +15,8 @@ class Admin extends Model
     public static function add_admin($data){
         return  self::table('shop_admin')->insert($data);
     }
+    //添加管理员角色
+    public static function add_admin_role($data){
+        return self::table('shop_admin_role')->insert($data);
+    }
 }

@@ -9,13 +9,15 @@
    <th width="30" align="center">编号</th>
    <th align="left">角色名称</th>
    <th align="left">角色描述</th>
+   <th align="left">该角色权限</th>
    <th align="center">操作</th>
   </tr>
-  {foreach $role as $key=>$val }
+  {foreach $all as $key=>$val }
   <tr>
    <td align="center">{$key+1}</td>
    <td>{$val.role_name}</td>
    <td>{$val.role_desc}</td>
+   <td>{$val.limit_name}</td>
    <td align="center"><a href="">编辑角色</a> | <a href="">删除</a></td>
   </tr>
   {/foreach}
