@@ -12,12 +12,16 @@
    <th align="left">该角色权限</th>
    <th align="center">操作</th>
   </tr>
-  {foreach $all as $key=>$val }
+  {foreach $roles as $key=>$val }
   <tr>
    <td align="center">{$key+1}</td>
    <td>{$val.role_name}</td>
    <td>{$val.role_desc}</td>
-   <td>{$val.limit_name}</td>
+   <td>
+    {foreach $val->limits as $k=>$v}
+       {$v->limit_name} ，
+    {/foreach}
+   </td>
    <td align="center"><a href="">编辑角色</a> | <a href="">删除</a></td>
   </tr>
   {/foreach}

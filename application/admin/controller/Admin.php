@@ -8,7 +8,8 @@ use think\Validate;
 class Admin extends Common
 {
     public function admin_show(){
-       $admin= \app\admin\model\Admin::getAllAdmin();
+       $admin=(new \app\admin\model\Admin())::all();
+
         return view('',['admin'=>$admin]);
     }
     //添加管理员
@@ -45,8 +46,8 @@ class Admin extends Common
             $sult=substr(uniqid(),-4);
             $admin_pwd=md5(md5($admin_pwd).$sult);
             $admin=['admin_name'  => $admin_name,'admin_pwd' => $admin_pwd,'admin_email' => $admin_email,'admin_sult'=>$sult,'add_time'=>time()];
-            if(\app\admin\model\Admin::add_admin($admin)){
-
+            $user=new \app\admin\model\Admin();
+            if($user->save($admin)){
                 $this->success('添加管理员成功','Admin/admin_show');
             }else{
                 $this->error('添加管理员失败');

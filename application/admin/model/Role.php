@@ -7,12 +7,11 @@ use think\Model;
 
 class Role extends Model
 {
-    //取所有角色
-    public static function getAllRole(){
-       return self::table('shop_role')->select();
+    protected $pk='role_id';
+    //多对多 关联模型
+    public function limits()
+    {
+        return $this->belongsToMany('Limit','limit_role','limit_id','role_id');
     }
-    //添加角色
-    public static function addRole($data){
-        return self::table('shop_role')->insert($data);
-    }
+
 }

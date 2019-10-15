@@ -7,13 +7,11 @@ use think\Model;
 
 class Admin extends Model
 {
-    //取所有管理员
-    public static function getAllAdmin(){
-        return  self::table('shop_admin')->select();
-    }
-    //添加管理员
-    public static function add_admin($data){
-        return  self::table('shop_admin')->insert($data);
+    protected $pk='admin_id';
+    //模型关联
+    public function role()
+    {
+        return $this->belongsToMany('Role','admin_role','role_id','admin_id');
     }
     //添加管理员角色
     public static function add_admin_role($data){

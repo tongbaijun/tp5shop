@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\Log;
+use app\admin\service\CateService;
 use think\Controller;
 use think\Db;
 use think\Session;
@@ -11,16 +12,16 @@ class Cate extends Common
 {
     public function show()
     {
-        $cates=\app\admin\model\Cate::getAllCate();
-        $cate=\app\admin\model\Cate::getCateByRecursion($cates);
+        $cates=(new \app\admin\model\Cate())::all();
+        $cate=CateService::getCateByRecursion($cates);
         return view('',['cate'=>$cate]);
     }
     //添加分类
     public function add_cate(){
         $session=session('admin');
         if(request()->isGet()){
-            $cates=\app\admin\model\Cate::getAllCate();
-            $cate=\app\admin\model\Cate::getCateByRecursion($cates);
+            $cates=(new \app\admin\model\Cate())::all();
+            $cate=CateService::getCateByRecursion($cates);
             return view('',['cate'=>$cate]);
         }
         if(request()->isPost()){
@@ -31,9 +32,10 @@ class Cate extends Common
                $this->error('分类名称不能为空');
            }
             $data=['cate_name'=>$cate_name,'cate_pid'=>$cate_pid,'cate_order'=>$cate_order];
-            if(\app\admin\model\Cate::addCate($data)){
+            if((new \app\admin\model\Cate())->save($data)){
+
                 $data=['admin_name'=>$session['admin_name'],'log_content'=>$session['admin_name'].'添加了分类','log_time'=>time(),'admin_ip'=>$_SERVER['REMOTE_ADDR']];
-                Log::addLog($data);
+                (new Log())->save($data);
                 $this->success('添加分类成功','show');
             }else{
                 $this->error('添加分类失败');
