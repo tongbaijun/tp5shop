@@ -71,7 +71,8 @@ class Common extends Controller{
         //是否是超级管理员登录
         if(in_array(session('admin')['admin_name'],config('web.super_admin'))){
             //展示所有权限
-            $limit=(new Limit())::all();
+            $limit=Limit::where('limit_show',0)->all();
+
             foreach($limit as $k=>$v){
                 $li_access=ucfirst(strtolower($v['limit_controller'])).'/'.strtolower($v['limit_action']);
             $v['limit_url']=$li_access;

@@ -10,6 +10,7 @@ class Limit extends Common
     public function limit_show(){
         $li=(new \app\admin\model\Limit())::all();
         $limit=LimitService::getLimitByRecursion($li);
+        $limit=LimitService::getLimitTree($limit);
         return view('',['limit'=>$limit]);
     }
     //添加权限

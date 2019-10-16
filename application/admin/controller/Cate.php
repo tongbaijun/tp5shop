@@ -10,7 +10,7 @@ use think\Validate;
 
 class Cate extends Common
 {
-    public function show()
+    public function cate_show()
     {
         $cates=(new \app\admin\model\Cate())::all();
         $cate=CateService::getCateByRecursion($cates);

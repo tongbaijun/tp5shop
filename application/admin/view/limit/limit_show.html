@@ -11,7 +11,6 @@
             <th align="center">是否左侧导航</th>
             <th align="center">所属控制器</th>
             <th align="center">所属模块</th>
-            <th align="center">所属权限</th>
             <th align="center">操作</th>
         </tr>
         {foreach $limit as $key=>$v}
@@ -25,10 +24,7 @@
             </td>
             <td align="center">{$v.limit_controller}</td>
             <td align="center">{$v.limit_action}</td>
-            <td align="center">
-
-            </td>
-            <td align="center"><a href="addmanager.html?rec=edit&id=1">编辑</a> | <a href="manager.html?rec=del&id=1">删除</a></td>
+            <td align="center"><a href="">编辑</a> | <a href="">删除</a></td>
         </tr>
         {/foreach}
     </table>
