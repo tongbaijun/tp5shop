@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![](https://box.kancloud.cn/5a0aaa69a5ff42657b5c4715f3d49221) 
 
 ThinkPHP 5.1（LTS版本） —— 12载初心，你值得信赖的PHP框架
@@ -178,3 +179,6 @@ All rights reserved。
 ThinkPHP® 商标和著作权所有者为上海顶想信息科技有限公司。
 
 更多细节参阅 [LICENSE.txt](LICENSE.txt)
+=======
+# tp5shop
+>>>>>>> 875115b21f22eddb42fbc1fedcefedd73aa3c029
