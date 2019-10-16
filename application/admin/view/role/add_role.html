@@ -2,9 +2,24 @@
 {block name="script"}
 <script>
     $(function(){
+        //父级选中，子集都选中
         $(".box").click(function(){
-           $(this).parent().next().children().prop('checked','checked');
+            if( $(this).parent().next().children().prop('checked')){
+                $(this).parent().next().children().prop('checked',false);
+            }else{
+                $(this).parent().next().children().prop('checked',true)
+            }
+        }),
+        //子集选中 父级跟着选中
+        $(".son_box").click(function(){
+            if($(this).parent().prev().children().prop('checked')){
+                $(this).parent().prev().children().prop('checked',false);
+            }else{
+                $(this).parent().prev().children().prop('checked',true);
+            }
+
         })
+
     })
 
 </script>
@@ -36,7 +51,7 @@
 
           <td>
               {foreach $val.child as $k=>$v}
-              <input type="checkbox" name="limit_id[]" value="{$v.limit_id}">{$v.limit_name}
+              <input type="checkbox" name="limit_id[]" value="{$v.limit_id}" class="son_box">{$v.limit_name}
               {/foreach}
           </td>
 

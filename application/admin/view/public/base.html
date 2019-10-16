@@ -8,8 +8,22 @@
     <link href="/static/css/public.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/global.js"></script>
+
     {block name="script"}
+    <script>
+//        $(function(){
+//           //隐藏所有的子类
+//            $('.ul').each(function(){
+//                console.log($(this).children('li').attr('limit_pid'))
+//               if($(this).children('li').attr('limit_pid')!=0){
+//                   $(this).children('li').hide()
+//               }
+//            })
+//        })
+    </script>
     {/block}
+
+
 </head>
 <body>
 <!--头部-->
@@ -43,30 +57,17 @@
         <ul class="top">
             <li><a href="{:url('Index/index')}"><i class="home"></i><em>管理首页</em></a></li>
         </ul>
-        <ul>
-            <li><a href="system.html"><i class="system"></i><em>系统设置</em></a></li>
-            <li><a href="nav.html"><i class="nav"></i><em>自定义导航栏</em></a></li>
-            <li><a href="show.html"><i class="show"></i><em>首页幻灯广告</em></a></li>
-            <li><a href="page.html"><i class="page"></i><em>单页面管理</em></a></li>
+    {foreach $limits as $key=>$val}
+        <ul class="ul">
+            <li><a href="javascript:void (0)"><i class="system"></i><em>{$val.limit_name}</em></a></li>
+            {foreach $val.child as $k=>$v}
+            <ul>
+                <li><a href="{:url($v.limit_url)}"><i class="system"></i><em>{$v.limit_name}</em></a></li>
+            </ul>
+            {/foreach}
         </ul>
-        <ul>
-            <li><a href="{:url('Cate/show')}"><i class="productCat"></i><em>商品分类</em></a></li>
-            <li><a href="{:url('Goods/goods_show')}"><i class="product"></i><em>商品列表</em></a></li>
-            <li><a href="{:url('Brand/brand_show')}"><i class="product"></i><em>品牌列表</em></a></li>
-        </ul>
-        <ul>
-            <li><a href="article_category.html"><i class="articleCat"></i><em>文章分类</em></a></li>
-            <li><a href="article.html"><i class="article"></i><em>文章列表</em></a></li>
-        </ul>
-        <ul class="bot">
-            <li><a href="backup.html"><i class="backup"></i><em>数据备份</em></a></li>
-            <li><a href="{:url('Limit/limit_show')}"><i class="backup"></i><em>权限设置</em></a></li>
-            <li><a href="{:url('Role/role_show')}"><i class="backup"></i><em>角色设置</em></a></li>
-            <!--<li><a href="mobile.html"><i class="mobile"></i><em>手机版</em></a></li>-->
-            <!--<li><a href="theme.html"><i class="theme"></i><em>设置模板</em></a></li>-->
-            <li><a href="{:url('Admin/admin_show')}"><i class="manager"></i><em>网站管理员</em></a></li>
-            <li><a href="{:url('Log/log_show')}"><i class="managerLog"></i><em>操作记录</em></a></li>
-        </ul>
+
+    {/foreach}
     </div></div>
 <!--主体-->
 {block name="main"}
