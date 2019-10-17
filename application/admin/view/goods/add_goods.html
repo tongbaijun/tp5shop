@@ -1,11 +1,93 @@
 {extend name="public:base" /}
 {block name="main"}
+
+<style>
+    span{
+        display: inline-block;
+        line-height: 32px;
+        padding: 0 25px;
+        margin-right: 10px;
+        cursor: pointer;
+        color: #888;
+        background-color: #f4f4f4;
+        border: 1px solid #dddddd;
+        border-bottom-color: rgb(221, 221, 221);
+        border-radius: 5px 5px 0 0;
+    }
+</style>
+
+<script>
+    $(function(){
+
+        //点击所属商品类型 展示对应分组
+        $("#type_name").change(function(){
+            $("#father").nextAll('tr').remove();
+            type_id=$(this).val();
+            $.ajax({
+                type:'post',
+                url:"add_goods_attr",
+                data:{
+                    type_id:type_id
+                },
+                dataType:'json',
+                success:function(data){
+                    if(data.status==1){
+                        html='';
+                        $.each(data.content,function(k,v){
+                            html+='<tr>';
+                            html+='<td>';
+                            html+= v.attr_name;
+                            html+='</td>';
+                            html+='<td>';
+                            if(v.attr_input_type==0){
+                                html+='<input name="" size="40" class="inpMain">';
+                            }else{
+                                html+='<select name="">';
+                                $.each(v.input_value,function(k1,v1){
+                                    html+='<option value="'+v1+'">'+v1+'</option>'
+                                });
+                                html+='</select>';
+                            }
+                            html+='</td>';
+                            html+='</tr>';
+                        });
+                        $("#father").after(html);
+                    }
+                }
+            })
+        })
+
+        //点击span1 显示div1 ，点击span2 显示div2 。。。
+        $(".div2").hide();
+        $(".div3").hide();
+        $(".span2").click(function(){
+            $(".div1").hide();
+            $(".div3").hide();
+            $(".div2").show();
+        });
+        $(".span3").click(function(){
+            $(".div2").hide();
+            $(".div1").hide();
+            $(".div3").show();
+        });
+        $(".span1").click(function(){
+            $(".div3").hide();
+            $(".div2").hide();
+            $(".div1").show();
+        });
+
+    })
+</script>
 <div id="dcMain">
     <!-- 当前位置 -->
     <div id="urHere">DouPHP 管理中心<b>></b><strong>添加商品</strong> </div>
     <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
         <h3><a href="{:url('Goods/goods_show')}" class="actionBtn">商品列表</a>添加商品</h3>
+        <span class="span1">基本信息</span>
+        <span class="span2">详细描述</span>
+        <span class="span3">商品属性</span>
         <form action="{:url('Goods/add_goods')}" method="post" enctype="multipart/form-data">
+         <div class="div1">
             <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
                 <tr>
                     <td width="90" align="right">商品名称</td>
@@ -62,45 +144,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" valign="top">商品描述</td>
-                    <td>
-                        <!-- KindEditor -->
-                        <link rel="stylesheet" href="js/kindeditor/themes/default/default.css" />
-                        <link rel="stylesheet" href="js/kindeditor/plugins/code/prettify.css" />
-                        <script charset="utf-8" src="js/kindeditor/kindeditor.js"></script>
-                        <script charset="utf-8" src="js/kindeditor/lang/zh_CN.js"></script>
-                        <script charset="utf-8" src="js/kindeditor/plugins/code/prettify.js"></script>
-                        <script>
-                            KindEditor.ready(function(K) {
-                                var editor1 = K.create('textarea[name="content"]', {
-                                    cssPath : '../plugins/code/prettify.css',
-                                    uploadJson : '../php/upload_json.php',
-                                    fileManagerJson : '../php/file_manager_json.php',
-                                    allowFileManager : true,
-                                    afterCreate : function() {
-                                        var self = this;
-                                        K.ctrl(document, 13, function() {
-                                            self.sync();
-                                            K('form[name=example]')[0].submit();
-                                        });
-                                        K.ctrl(self.edit.doc, 13, function() {
-                                            self.sync();
-                                            K('form[name=example]')[0].submit();
-                                        });
-                                    }
-                                });
-                                prettyPrint();
-                            });
-                        </script>
-                        <!-- /KindEditor -->
-                        <textarea id="content" name="goods_detail_desc" style="width:780px;height:400px;" class="textArea"></textarea>
-                    </td>
-                </tr>
-                <tr>
                     <td align="right">缩略图</td>
                     <td>
                         <input type="file" name="goods_img" size="38" class="inpFlie" />
-                        <img src="images/icon_no.png"></td>
+                        <img src="/static/images/icon_no.png"></td>
                 </tr>
                 <tr>
                     <td align="right">关键字</td>
@@ -114,15 +161,40 @@
                         <input type="text" name="goods_desc" value="" size="50" class="inpMain" />
                     </td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="hidden" name="token" value="21307217" />
-                        <input type="hidden" name="id" value="">
-                        <input name="submit" class="btn" type="submit" value="提交" />
-                    </td>
-                </tr>
+
             </table>
+         </div>
+         <div class="div2">
+             <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                 <tr>
+                     <td align="right" valign="top">商品描述</td>
+                     <td>
+                         <textarea id="content" name="goods_detail_desc" style="width:780px;height:400px;" class="textArea"></textarea>
+                     </td>
+                 </tr>
+             </table>
+         </div>
+         <div class="div3">
+             <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                 <tr id="father">
+                     <td width="100" align="right">所属商品类型</td>
+                     <td>
+                         <select name="type_id" id="type_name" >
+                             <option value="0" >--请选择-- </option>
+                             {foreach $type as $key=>$val}
+                             <option value="{$val.type_id}">{$val.type_name}</option>
+                             {/foreach}
+                         </select>
+                     </td>
+                 </tr>
+                 
+             </table>
+         </div>
+
+                    <input type="hidden" name="token" value="21307217" />
+                    <input type="hidden" name="id" value="">
+                    <input name="submit" class="btn" type="submit" value="提交" />
+
         </form>
     </div>
 </div>
