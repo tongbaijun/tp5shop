@@ -35,6 +35,7 @@ class LimitService
         $arr=[];
         foreach($array as $key=>$value) {
             if($value['limit_pid']==$pid){
+                $value['child']=[];
                 $son=self::getLimitTree($array,$value['limit_id']);
                 if($son){
                     $value['child']=$son;

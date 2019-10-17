@@ -1,0 +1,38 @@
+{extend name="public:base" /}
+{block name="main"}
+<div id="dcMain">
+    <!-- 当前位置 -->
+    <div id="urHere">DouPHP 管理中心<b>></b><strong>属性管理</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+    <h3><a href="{:url('Attr/add_attr')}" class="actionBtn">添加属性</a>属性管理</h3>
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <th width="30" align="center">编号</th>
+            <th align="left">属性名称</th>
+            <th align="center">属性类型</th>
+            <th align="center">属性录入方式</th>
+            <th align="center">属性可选值</th>
+            <th align="center">操作</th>
+        </tr>
+        {foreach $attr as $key=>$v}
+        <tr>
+            <td align="center">{$key+1}</td>
+            <td>{$v.attr_name}</td>
+            <td align="center">
+                {if $v.attr_type == 0}参数
+                {else}规格
+                {/if}
+            </td>
+            <td align="center">
+                {if $v.attr_input_type == 0}手工录入
+                {else}可选值录入
+                {/if}
+            </td>
+            <td align="center">{$v.attr_input_value}</td>
+            <td align="center"><a href="">编辑</a> | <a href="">删除</a></td>
+        </tr>
+        {/foreach}
+    </table>
+</div>
+</div>
+<div class="clear"></div>
+{/block}

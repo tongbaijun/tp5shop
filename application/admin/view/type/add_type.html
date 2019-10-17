@@ -1,0 +1,34 @@
+{extend name="public:base" /}
+{block name="main"}
+<div id="dcMain">
+ <!-- 当前位置 -->
+ <div id="urHere">DouPHP 管理中心<b>></b><strong>类型</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+ <h3><a href="{:url('Type/type_show')}" class="actionBtn">返回列表</a>类型管理</h3>
+ <form action="{:url('Type/add_type')}" method="post">
+  <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+   <tr>
+    <td width="100" align="right">类型名称</td>
+    <td>
+     <input type="text" name="type_name" size="40" class="inpMain" />
+    </td>
+   </tr>
+   <tr>
+    <td width="100" align="right">类型组名</td>
+    <td>
+        <textarea name="group_name" id="" cols="30" rows="10"></textarea>
+       <p style="color: #8D8D8D">不同的商品属性组 请用中文逗号( , ) 隔开</p>
+    </td>
+   </tr>
+   <tr>
+    <td></td>
+    <td>
+     <!--<input type="hidden" name="token" value="5a58b748" />-->
+     <input type="submit" name="submit" class="btn" value="提交" />
+    </td>
+   </tr>
+  </table>
+ </form>
+</div>
+</div>
+<div class="clear"></div>
+{/block}

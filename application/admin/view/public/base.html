@@ -84,15 +84,19 @@
     </style>
     <script>
         $(function(){
-           //隐藏所有的子类 点击显示所有子集
-            $(".father").click(function(){
-                status=($(".son").css('display'));
-                if(status=='none'){
-                    $(".son").fadeIn()
+            $(".purl").click(function(){
+                s = $(this).attr("status");
+                if(s==1){
+                    $(this).attr("status",0);
                 }else{
-                    $(".son").fadeOut()
+                    $(this).attr("status",1);
                 }
-            })
+                if(s==1){
+                    $(this).parent().next().children("li").fadeOut();
+                }else{
+                    $(this).parent().next().children("li").fadeIn();
+                }
+            });
         })
     </script>
     {/block}
@@ -125,22 +129,22 @@
     </div>
 </div>
 <!--左侧-->
-<div id="dcLeft"><div id="menu">
+    <div id="dcLeft"><div id="menu">
         <ul class="top">
-            <li><a href="{:url('Index/index')}"><i class="home"></i><em>管理首页</em></a></li>
+            <li><a href=" 'Index/index')}"><i class="home"></i><em>管理首页</em></a></li>
         </ul>
-    {foreach $limits as $key=>$val}
+        {foreach $limits as $key=>$val}
         <ul>
-            <li class="father" limit_id="{$val.limit_id}"><a href="javascript:void (0)"><i class="system"></i><em>{$val.limit_name}</em></a></li>
-            {foreach $val.child as $k=>$v}
-            <ul class="son" style="display: none" limit_id="{$v.limit_pid}">
-                <li><a href="{:url($v.limit_url)}"><i></i><em>{$v.limit_name}</em></a></li>
+            <li><a href="javascript:void(0)" class="purl" status="0"><i class="system"></i><em>{$val.limit_name}</em></a></li>
+            <ul>
+                {foreach $val.child as $k=>$v}
+                <li style="display: none"><a href="{:url($v.limit_url)}"><i></i><em style="color: #0B90EF">{$v.limit_name}</em></a></li>
+                {/foreach}
             </ul>
-            {/foreach}
         </ul>
-
-    {/foreach}
-    </div></div>
+        {/foreach}
+    </div>
+    </div>
 <!--主体-->
 {block name="main"}
     <div id="dcMain">
