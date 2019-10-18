@@ -36,7 +36,7 @@ class Cate extends Common
 
                 $data=['admin_name'=>$session['admin_name'],'log_content'=>$session['admin_name'].'添加了分类','log_time'=>time(),'admin_ip'=>$_SERVER['REMOTE_ADDR']];
                 (new Log())->save($data);
-                $this->success('添加分类成功','show');
+                $this->success('添加分类成功','cate_show');
             }else{
                 $this->error('添加分类失败');
             }

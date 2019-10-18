@@ -3,6 +3,7 @@ namespace app\admin\controller;
 
 use app\admin\model\Attr;
 use app\admin\model\Brand;
+use app\admin\model\Cate;
 use app\admin\model\Type;
 use app\admin\service\CateService;
 use think\Controller;
@@ -16,11 +17,17 @@ class Goods extends Common
     }
     //添加商品
     public function add_goods(){
-        $type=Type::all();
-        $cates=(new \app\admin\model\Cate())::all();
-        $cate=CateService::getCateByRecursion($cates);
-        $brand=Brand::getAllBrand();
-        return view('',['cate'=>$cate,'brand'=>$brand,'type'=>$type]);
+        if(request()->isGet()){
+            $type=Type::all();
+            $cates=Cate::all();
+            $cate=CateService::getCateByRecursion($cates);
+            $brand=Brand::getAllBrand();
+            return view('',['cate'=>$cate,'brand'=>$brand,'type'=>$type]);
+        }
+        if(request()->isPost()){
+            $data=request()->post();
+            dump($data);
+        }
     }
     //商品删除
     public function delete_goods(){

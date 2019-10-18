@@ -26,8 +26,8 @@ class Role extends Common
 
            $data=['role_name'=>$role_name,'role_desc'=>$role_desc];
 
-           $role_id=(new \app\admin\model\Role())->save($data);
-
+           (new \app\admin\model\Role())->save($data);
+           $role_id=(new \app\admin\model\Role())->role_id;
            if($role_id){
                if(!empty($limit_id)){
                    foreach($limit_id as $key=>$val){

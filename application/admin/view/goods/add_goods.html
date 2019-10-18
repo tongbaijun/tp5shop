@@ -1,6 +1,6 @@
 {extend name="public:base" /}
 {block name="main"}
-
+{include file='public/date'}
 <style>
     span{
         display: inline-block;
@@ -15,7 +15,23 @@
         border-radius: 5px 5px 0 0;
     }
 </style>
+<!--百度编辑器的引入-->
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
 
+<style type="text/css">
+    div{
+        width:100%;
+    }
+</style>
+<script type="text/javascript">
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor');
+</script>
 <script>
     $(function(){
 
@@ -40,9 +56,9 @@
                             html+='</td>';
                             html+='<td>';
                             if(v.attr_input_type==0){
-                                html+='<input name="" size="40" class="inpMain">';
+                                html+='<input name="attr[]" size="40" class="inpMain">';
                             }else{
-                                html+='<select name="">';
+                                html+='<select name="attr[]">';
                                 $.each(v.input_value,function(k1,v1){
                                     html+='<option value="'+v1+'">'+v1+'</option>'
                                 });
@@ -75,6 +91,15 @@
             $(".div2").hide();
             $(".div1").show();
         });
+
+        //点击促销 即可填写促销价格 日期
+        $("#cheap").click(function(){
+            if($("#cheap").is(':checked')){
+                $(".cheap").attr('disabled',false)
+            }else{
+                $(".cheap").attr('disabled',true)
+            }
+        })
 
     })
 </script>
@@ -130,17 +155,21 @@
                 <tr>
 
                     <td align="right">
-                        <input type="checkbox" name="is_cheap_sale" value="0"  />
+                        <input type="checkbox" name="is_cheap_sale" value="0" id="cheap" />
                         促销价格
                     </td>
                     <td>
-                        <input type="text" name="sale_price" value="0" size="40" class="inpMain" />
+                        <input type="text" name="sale_price" value="0" size="40" class="cheap" disabled />
                     </td>
                 </tr>
                 <tr>
                     <td align="right">促销日期</td>
                     <td>
-                        引入日历插件
+                        起始日期 ：
+
+                        <input type="text" name="cheap_start"  class="cheap date_picker" style="width:100px;background: #fefefe;border: 1px solid #bbb;font-size: 14px;color: #333;border-radius: 3px;" disabled>
+                        结束日期 ：<input type="text" name="cheap_end" value="" class="cheap date_picker" style="width:100px;background: #fefefe;border: 1px solid #bbb;font-size: 14px;color: #333;border-radius: 3px;" disabled>
+
                     </td>
                 </tr>
                 <tr>
@@ -169,7 +198,7 @@
                  <tr>
                      <td align="right" valign="top">商品描述</td>
                      <td>
-                         <textarea id="content" name="goods_detail_desc" style="width:780px;height:400px;" class="textArea"></textarea>
+                         <textarea name="goods_detail_desc" id="editor" type="text/plain" style="width:900px;height:500px;"></textarea>
                      </td>
                  </tr>
              </table>
@@ -191,9 +220,9 @@
              </table>
          </div>
 
-                    <input type="hidden" name="token" value="21307217" />
-                    <input type="hidden" name="id" value="">
-                    <input name="submit" class="btn" type="submit" value="提交" />
+                    <!--<input type="hidden" name="token" value="21307217" />-->
+                    <!--<input type="hidden" name="id" value="">-->
+                    <input class="btn" type="submit" value="提交" />
 
         </form>
     </div>
