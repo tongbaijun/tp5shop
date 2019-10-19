@@ -7,8 +7,9 @@ use think\Model;
 
 class Goods extends Model
 {
-    //获取所有商品
-    public static function getALlGoods(){
-       return self::table('shop_goods')->select();
+    protected  $pk='goods_id';
+    //模型关联
+    public function attr(){
+        return $this->belongsToMany('Attr','goods_attr','attr_id','goods_id');
     }
 }

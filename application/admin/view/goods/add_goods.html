@@ -51,45 +51,46 @@
                         html='';
                         $.each(data.content,function(k,v){
                             html+='<tr>';
-                            html+='<td>';
-                            html+= v.attr_name;
-                            html+='</td>';
-                            html+='<td>';
-                            if(v.attr_input_type==0){
-                                html+='<input name="attr[]" size="40" class="inpMain">';
-                            }else{
-                                html+='<select name="attr[]">';
-                                $.each(v.input_value,function(k1,v1){
-                                    html+='<option value="'+v1+'">'+v1+'</option>'
-                                });
-                                html+='</select>';
+                            html+='<td style="width: 150px">';
+                            if(v.attr_type==0){
+                                html+= v.attr_name;
+                                html+='</td>';
+                                if(v.attr_input_type==0){
+                                    html+='<td>';
+                                    html+='<input  type="text" name="attr_value[]">';
+                                    html+='<input  type="hidden" name="attr_id[]" value="'+ v.attr_id+'" >';
+                                    html+='<input  type="hidden" name="attr_name[]" value="'+ v.attr_name+'">';
+                                    html+='<input  type="hidden" name="attr_type[]" value="'+ v.attr_type+'">';
+                                    html+='</td>';
+                                }else{
+                                    html+='<td>';
+                                    $.each(v.input_value,function(k1,v1){
+                                        html+='<input  name="attr_value[]" type="radio" value="'+v1+'">'+v1;
+                                    });
+                                    html+='<input  type="hidden" name="attr_id[]" value="'+ v.attr_id+'">';
+                                    html+='<input  type="hidden" name="attr_name[]" value="'+ v.attr_name+'">';
+                                    html+='<input  type="hidden" name="attr_type[]" value="'+ v.attr_type+'">';
+                                    html+='</select>';
+                                    html+='</td>';
+                                }
                             }
-                            html+='</td>';
                             html+='</tr>';
                         });
                         $("#father").after(html);
                     }
                 }
             })
-        })
-
+        });
         //点击span1 显示div1 ，点击span2 显示div2 。。。
-        $(".div2").hide();
-        $(".div3").hide();
+        $(".div1").show().siblings().hide();
         $(".span2").click(function(){
-            $(".div1").hide();
-            $(".div3").hide();
-            $(".div2").show();
+            $(".div2").show().siblings().hide();
         });
         $(".span3").click(function(){
-            $(".div2").hide();
-            $(".div1").hide();
-            $(".div3").show();
+            $(".div3").show().siblings().hide();
         });
         $(".span1").click(function(){
-            $(".div3").hide();
-            $(".div2").hide();
-            $(".div1").show();
+            $(".div1").show().siblings().hide();
         });
 
         //点击促销 即可填写促销价格 日期
@@ -112,6 +113,7 @@
         <span class="span2">详细描述</span>
         <span class="span3">商品属性</span>
         <form action="{:url('Goods/add_goods')}" method="post" enctype="multipart/form-data">
+         <div>
          <div class="div1">
             <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
                 <tr>
@@ -149,7 +151,13 @@
                 <tr>
                     <td align="right">商品价格</td>
                     <td>
-                        <input type="text" name="goods_price" value="0" size="40" class="inpMain" />
+                        <input type="text" name="goods_price" value="0" size="20" class="inpMain" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="90" align="right">商品库存</td>
+                    <td>
+                        <input type="text" name="goods_num" size="20" class="inpMain" />
                     </td>
                 </tr>
                 <tr>
@@ -219,7 +227,7 @@
                  
              </table>
          </div>
-
+         </div>
                     <!--<input type="hidden" name="token" value="21307217" />-->
                     <!--<input type="hidden" name="id" value="">-->
                     <input class="btn" type="submit" value="提交" />
