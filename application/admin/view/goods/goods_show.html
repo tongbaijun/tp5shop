@@ -6,14 +6,14 @@
     <h3><a href="{:url('Goods/add_goods')}" class="actionBtn add">添加商品</a>商品列表</h3>
 
     <div class="filter">
-        <form action="" method="post">
-            <select name="cat_id">
-                <option value="0">--请选择分类--</option>
+        <!--<form action="" method="post">-->
+            <!--<select name="cat_id">-->
+                <!--<option value="0">&#45;&#45;请选择分类&#45;&#45;</option>-->
 
-            </select>
-            <input name="keyword" type="text" class="inpMain" value="" size="20" />
-            <input name="submit" class="btnGray" type="submit" value="筛选" />
-        </form>
+            <!--</select>-->
+            <!--<input name="keyword" type="text" class="inpMain" value="" size="20" />-->
+            <!--<input name="submit" class="btnGray" type="submit" value="筛选" />-->
+        <!--</form>-->
     </div>
     <div id="list">
         <form name="action" method="post" action="">
@@ -24,9 +24,10 @@
                     </th>
                     <th width="20" align="center">编号</th>
                     <th width="50" align="left">商品名称</th>
-                    <th width="150" align="center">商品分类</th>
+                    <th width="150" align="center">商品图片</th>
                     <th width="80" align="center">商品价格</th>
                     <th width="80" align="center">库存数量</th>
+                    <th width="80" align="center">商品状态</th>
                     <th width="80" align="center">是否促销</th>
                     <th width="80" align="center">操作</th>
                 </tr>
@@ -35,38 +36,44 @@
                     <td align="center"><input type="checkbox" name="checkbox[]" value="1" /></td>
                     <td align="center">{$key+1}</td>
                     <td><a href="">{$val.goods_name}</a></td>
-                    <td align="center"> <a href=""></a></td>
+                    <td align="center"><a href=""><img src="{$val.goods_img}" alt="" width="160px" height="120px"> </a></td>
                     <td align="center">{$val.goods_price}</td>
                     <td align="center">{$val.goods_num}</td>
+                    <td align="center">
+                        {if $val.is_show ==0}上架
+                        {else}下架
+                        {/if}
+                    </td>
                     <td align="center">
                         {if $val.is_cheap_sale ==0}促销
                         {else}正常
                         {/if}
                     </td>
                     <td align="center">
-                        <a href="">编辑</a> |
-                        <a href="">删除</a> |
+                        <a href=""> 编辑 </a> |
+                        <a href=""> 货品列表 </a> |
+                        <a href=""> 删除 </a> |
 
                     </td>
                 </tr>
                 {/foreach}
             </table>
-            <div class="action">
-                <select name="action" onchange="douAction()">
-                    <option value="0">请选择...</option>
-                    <option value="del_all">删除</option>
-                    <option value="category_move">移动分类至</option>
-                </select>
-                <select name="new_cat_id" style="display:none">
-                    <option value="0">未分类</option>
-                    <option value="1"> 电子数码</option>
-                    <option value="4">- 智能手机</option>
-                    <option value="5">- 平板电脑</option>
-                    <option value="2"> 家居百货</option>
-                    <option value="3"> 母婴用品</option>
-                </select>
-                <input name="submit" class="btn" type="submit" value="执行" />
-            </div>
+            <!--<div class="action">-->
+                <!--<select name="action" onchange="douAction()">-->
+                    <!--<option value="0">请选择...</option>-->
+                    <!--<option value="del_all">删除</option>-->
+                    <!--<option value="category_move">移动分类至</option>-->
+                <!--</select>-->
+                <!--<select name="new_cat_id" style="display:none">-->
+                    <!--<option value="0">未分类</option>-->
+                    <!--<option value="1"> 电子数码</option>-->
+                    <!--<option value="4">- 智能手机</option>-->
+                    <!--<option value="5">- 平板电脑</option>-->
+                    <!--<option value="2"> 家居百货</option>-->
+                    <!--<option value="3"> 母婴用品</option>-->
+                <!--</select>-->
+                <!--<input name="submit" class="btn" type="submit" value="执行" />-->
+            <!--</div>-->
         </form>
     </div>
     <div class="clear"></div>

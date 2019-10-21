@@ -17,7 +17,10 @@ class Goods extends Common
     public function goods_show()
     {
         $goods=\app\admin\model\Goods::all();
-
+        foreach($goods as $k=>$v){
+            $attr[]=$v->attr;
+        }
+        dump($attr);
         return view('',['goods'=>$goods]);
     }
     //添加商品
@@ -47,7 +50,7 @@ class Goods extends Common
 
             //处理数组 整理好属性表的数据
             $arr=[
-                $data['attr_id'],$data['attr_name'],$data['attr_value'],$data['attr_type']
+                $data['attr_id'],$data['attr_name'],$data['attr_value'],$data['attr_type'],$data['attr_price']
             ];
             $attr=[];
 
@@ -79,6 +82,7 @@ class Goods extends Common
                    'attr_name'=>$arr[1][$k],
                    'attr_value'=>$arr[2][$k],
                    'attr_type'=>$arr[3][$k],
+                   'attr_price'=>$arr[4][$k]
                ];
             }
             $goodsAttrModel->saveAll($d);
