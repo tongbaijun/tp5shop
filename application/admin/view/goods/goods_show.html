@@ -50,9 +50,12 @@
                         {/if}
                     </td>
                     <td align="center">
-                        <a href=""> 编辑 </a> |
-                        <a href=""> 货品列表 </a> |
-                        <a href=""> 删除 </a> |
+                        <a href="">编辑</a> |
+                        <a href="">删除</a> |<br/>
+                        {if $val.status == 1}
+                        <a href="{:url('Product/product_show',['goods_id'=>$val.goods_id])}">货品列表</a>
+                        {else}
+                        {/if}
 
                     </td>
                 </tr>

@@ -17,10 +17,13 @@ class Goods extends Common
     public function goods_show()
     {
         $goods=\app\admin\model\Goods::all();
-        foreach($goods as $k=>$v){
-            $attr[]=$v->attr;
+        foreach($goods as $key=>$val){
+            $goods_id=$val->goods_id;
+            $arr=GoodsAttr::where(["goods_id"=>$goods_id,"attr_type"=>1])->select()->toArray();
+            if(!empty($arr)) {
+                $goods[$key]["status"] = 1;
+            }
         }
-        dump($attr);
         return view('',['goods'=>$goods]);
     }
     //添加商品

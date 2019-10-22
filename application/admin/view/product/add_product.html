@@ -1,0 +1,62 @@
+{extend name="public:base" /}
+{block name="script"}
+<script>
+    $(function(){
+        //点击加号 规格添加
+        $(".jia").click(function(){
+        html= $(this).parents('tr').clone();
+        $(this).parents('tr').after(html);
+        $(this).parents('tr').next().find(".jia").html(" [ - ] ").removeClass("jia").addClass("jian");
+        var num = $("tr").size();
+        $(this).parents('tr').next().find("input,select").attr("name","goods_attr_id["+num+"][]");
+        });
+        //点击减号 整条删除
+        $(document).on('click','.jian',function(){
+        $(this).parents('tr').remove();
+        })
+    })
+</script>
+{/block}
+{block name="main"}
+<div id="dcMain">
+ <!-- 当前位置 -->
+ <div id="urHere">DouPHP 管理中心<b>></b><strong>添加货品</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+ <h3><a href="{:url('Product/product_show',['goods_id'=>$goods_id])}" class="actionBtn">返回列表</a>添加货品</h3>
+ <form action="{:url('Product/add_product',['goods_id'=>$goods_id])}" method="post">
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+         <tr>
+             <th align="left" width="40">操作</th>
+             {foreach $result as $k=>$v}
+             <th width="230" align="center">{$k}</th>
+             {/foreach}
+             <th width="100" align="center">库存</th>
+         </tr>
+         <tr>
+             <td>
+                 <em style="color: red;font-size: larger" class="jia"> [ + ] </em>
+             </td>
+             {foreach $result as $k=>$v}
+             <td width="200" align="center">
+                 <select name="goods_attr_id[0][]" id="">
+                     <option value="0">--请选择--</option>
+                     {foreach $v as $k1=>$v1}
+                     {if $v1.attr_name==$k}
+                     <option value="{$v1.goods_attr_id}">{$v1.attr_value}</option>
+                     {/if}
+                     {/foreach}
+                 </select>
+
+             </td>
+             {/foreach}
+             <td>
+                 <input type="text" name="goods_attr_id[0][]" value="0" class="inpFlie">
+             </td>
+
+         </tr>
+     </table>
+     <input type="submit"  value="保存" class="btn">
+ </form>
+</div>
+</div>
+<div class="clear"></div>
+{/block}
